@@ -23,10 +23,8 @@ public class Sample3AuthConfiguration extends WebSecurityConfigurerAdapter {
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
     // $ sshrun htpasswd -nbBC 10 user1 pAssw0rd
-    auth.inMemoryAuthentication().withUser("user1")
-        .password(passwordEncoder().encode("DBpass1")).roles("USER1");
-    auth.inMemoryAuthentication().withUser("user2")
-        .password(passwordEncoder().encode("DBpass2")).roles("USER2");
+    auth.inMemoryAuthentication().withUser("user1").password(passwordEncoder().encode("DBpass1")).roles("USER1");
+    auth.inMemoryAuthentication().withUser("user2").password(passwordEncoder().encode("DBpass2")).roles("USER2");
 
     // 開発中は↓の書き方でも良いが，平文でパスワードが保存される
     // auth.inMemoryAuthentication().withUser("user1").password(passwordEncoder().encode("pAssw0rd")).roles("USER");
@@ -51,7 +49,7 @@ public class Sample3AuthConfiguration extends WebSecurityConfigurerAdapter {
     // antMatchers().authenticated がantMatchersへのアクセスに認証を行うことを示す
     // antMatchers()の他にanyRequest()と書くとあらゆるアクセス先を表現できる
     // authenticated()の代わりにpermitAll()と書くと認証処理が不要であることを示す
-    http.authorizeRequests().antMatchers("/").authenticated();
+    http.authorizeRequests().antMatchers("/sample4/**").authenticated();
     /**
      * 以下2行はh2-consoleを利用するための設定なので，開発が完了したらコメントアウトすることが望ましい
      * CSRFがONになっているとフォームが対応していないためアクセスできない
